@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 
 function Options(){
 
+    let btnAudio = new Audio("/public/btnClickAudio.mp3")
+
+    const btnClickAudio = () => btnAudio.play()
+
     const [players, setPlayers] = useState([]);
     const [newPlayer, setNewPlayer] = useState({
         name:"",
@@ -22,6 +26,7 @@ function Options(){
             const playerToAdd = { ...newPlayer, color: color };
             setPlayers([...players, playerToAdd]);
             setNewPlayer({ name: "", points: 0 });
+            btnClickAudio()
         }
     };
 
@@ -29,21 +34,29 @@ function Options(){
         const updatedPlayers = [...players];
         updatedPlayers.splice(index, 1);
         setPlayers(updatedPlayers);
+        btnClickAudio()
     };
 
-    const colors = ["red", "green", "yellow", "blue", "white", "black", "orange", "purple", "aqua", "gray"];
+    const startGame = () =>{
+        btnClickAudio();
+        localStorage.setItem("players", JSON.stringify(players))
+    }
+
+    const colors = ["red", "green", "yellow", "blue", "white", "lightgreen", "orange", "purple", "aqua"];
 
     return (
         <div className={styles.container}>
             <Link to="/">
-                <button className={styles.backBtn}>←</button>
+                <button onClick={btnClickAudio} className={styles.backBtn}>←</button>
             </Link>
-            <Link to="/game">
-                <button className={styles.startBtn}>START</button>
-            </Link>
+            {players.length >= 2 &&
+             <Link to="/game">
+                <button onClick={startGame} className={styles.startBtn}>START</button>
+            </Link> }
+
             <div className={styles.form}>
-                <input type="text" onChange={changehandle} value={newPlayer.name} name="name" placeholder="Player name" className={styles.textField}></input>
-                <button onClick={addPlayer} className={`${styles.addBtn} ${players.length >= 10 ? styles.disabled : ""}`} disabled={players.length >= 10}>ADD PLAYER</button>
+                <input type="text" maxlength="10" onChange={changehandle} value={newPlayer.name} name="name" placeholder="Player name" className={styles.textField}></input>
+                <button onClick={addPlayer} className={`${styles.addBtn} ${players.length >= 9 ? styles.disabled : ""}`} disabled={players.length >= 9}>ADD PLAYER</button>
             </div>
             <table className={styles.playerTable}>
                 <thead>
@@ -58,7 +71,7 @@ function Options(){
                         <tr key={index}>
                             <td>{player.name}</td>
                             <td style={{ backgroundColor: player.color }}></td>
-                            <td><button onClick={() => removePlayer(index)}>Remove</button></td>
+                            <td><button className={styles.removeBtn} onClick={() => removePlayer(index)}>Remove</button></td>
                         </tr>
                     ))}
                 </tbody>

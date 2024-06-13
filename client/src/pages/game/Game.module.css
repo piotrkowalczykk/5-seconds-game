@@ -1,0 +1,31 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 85vh;
+    overflow: hidden;
+    border: 1px solid black;
+}
+.question{
+    background-color: red;
+}
+.playersScore{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    height: 15vh;
+}
+.player{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid black;
+    width: 100px;
+    margin: 0.25rem;
+}
+.player span{
+    background-color: transparent;
+}
