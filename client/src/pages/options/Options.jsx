@@ -55,7 +55,7 @@ function Options(){
             </Link> }
 
             <div className={styles.form}>
-                <input type="text" maxlength="9" onChange={changehandle} value={newPlayer.name} name="name" placeholder="Player name" className={styles.textField}></input>
+                <input type="text" maxLength="9" onChange={changehandle} value={newPlayer.name} name="name" placeholder="Player name" className={styles.textField}></input>
                 <button onClick={addPlayer} className={`${styles.addBtn} ${players.length >= 9 ? styles.disabled : ""}`} disabled={players.length >= 9}>ADD PLAYER</button>
             </div>
             <table className={styles.playerTable}>

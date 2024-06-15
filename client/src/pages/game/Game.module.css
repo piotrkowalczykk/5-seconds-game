@@ -11,24 +11,17 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    border: 1px solid black;
     width: clamp(350px, 50%, 600px);
     height: 70vh;
+    overflow: visible;
 }
 .questionFor{
-    border: 1px solid black;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
     width: 100%;
     height: fit-content;
     text-align: center;
     padding: 1rem;
-}
-.text{
-    margin-top: 1rem;
-    width: 80%;
-    height: 80%;
-    border: 1px solid black;
-    background: #eade07;
-    border-radius: 1rem;
 }
 .timerContainer {
     margin-top: 1rem;
@@ -38,26 +31,29 @@
     border-radius: 15px;
     overflow: hidden;
     position: relative;
-}
+  }
+  
 .timer {
     width: 100%;
     height: 100%;
     background-image: url('/public/load.jpg');
+}
+  
+.timer.animate {
     animation: countdown 5s linear forwards;
 }
-
+  
 @keyframes countdown {
     from {
-        width: 100%;
+      width: 100%;
     }
     to {
-        width: 0;
+      width: 0;
     }
 }
 .buttons{
     display: flex;
     justify-content: space-around;
-    border: 1px solid black;
     width: 90%;
     overflow: visible;
     margin: 1rem;
@@ -71,6 +67,10 @@
     padding-left: 1rem;
     padding-right: 1rem;
     font-size: clamp(0.2rem, 3vw, 1rem);
+    transition: background-color 0.3s ease;
+}
+.flipBtn:hover{
+    background-color: #c2ba27;
 }
 .fix{
     background: transparent;
@@ -84,7 +84,11 @@
     padding-left: 1rem;
     padding-right: 1rem;
     font-size: clamp(0.2rem, 3vw, 1rem);
+    transition: background-color 0.3s ease;
 
+}
+.startTimerBtn:hover{
+    background-color: #c2ba27;
 }
 .yesBtn{
     background-color: rgb(8, 202, 8);
@@ -95,6 +99,7 @@
     padding-left: 1rem;
     padding-right: 1rem;
     font-size: clamp(0.2rem, 3vw, 1rem);
+    transition: background-color 0.3s ease;
 }
 .noBtn{
     background-color: rgb(223, 36, 36);
@@ -105,6 +110,7 @@
     padding-left: 1rem;
     padding-right: 1rem;
     font-size: clamp(0.2rem, 3vw, 1rem);
+    transition: background-color 0.3s ease;
 }
 .playersScore{
     display: flex;
@@ -127,4 +133,63 @@
 .player span{
     background-color: transparent;
     font-size: clamp(0.2rem, 3vw, 1rem);
+}
+.card {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 80%;
+    height: 80%;
+    perspective: 1000px;
+    overflow: visible;
+}
+.front,
+.back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    transition: transform 0.5s ease-in-out;
+    transform-style: preserve-3d;
+    background: #eade07;
+    border-radius: 1rem;
+    border: 1px solid black;
+
+}
+.back{
+    transform: rotateY(180deg);
+}
+.card.flipped .front{
+    transform: rotateY(180deg);
+}
+.card.flipped .back{
+    transform: rotateY(360deg);
+}
+.front{
+    font-size: clamp(4rem, 15rem, 20rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.quitBtn{
+    background-color: #eade07;
+    cursor: pointer;
+    border: none;
+    border-radius: 2rem;
+    width: clamp(100px, 30vw, 200px);
+    padding: 0.5rem;
+    font-size: clamp(1rem, 2vw, 2rem);
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-bottom: 3rem;
+    box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 1rem;
+}
+.quitBtn:hover{
+    background-color: #afa818;
 }
