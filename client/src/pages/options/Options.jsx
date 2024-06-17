@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 
 function Options(){
 
-    let btnAudio = new Audio("/public/btnClickAudio.mp3")
+    const [btnAudio] = useState(new Audio("/public/btnClickAudio.mp3"));
+    const [startAudio] = useState(new Audio("/public/start.mp3"));
 
     const btnClickAudio = () => btnAudio.play()
 
@@ -38,8 +39,8 @@ function Options(){
     };
 
     const startGame = () =>{
-        btnClickAudio();
-        localStorage.setItem("players", JSON.stringify(players))
+        localStorage.setItem("players", JSON.stringify(players));
+        startAudio.play();
     }
 
     const colors = ["red", "green", "yellow", "blue", "white", "lightgreen", "orange", "purple", "aqua"];

@@ -14,8 +14,9 @@ function Game() {
     const [currentQuestion, setCurrentQuestion] = useState(null);
     const [usedQuestionIds, setUsedQuestionIds] = useState([]);
 
-    const clockAudio = new Audio("/public/clock.mp3");
-    const btnAudio = new Audio("/public/btnClickAudio.mp3");
+    const [clockAudio] = useState(new Audio("/public/clock.mp3"));
+    const [btnAudio] = useState(new Audio("/public/btnClickAudio.mp3"));
+    const [flipAudio] = useState(new Audio("/public/flip.mp3"));
 
     const btnClickAudio = () => btnAudio.play();
 
@@ -28,7 +29,7 @@ function Game() {
     const getRandomQuestion = () => {
         let id;
         do {
-            id = Math.floor(Math.random() * 2) + 1;
+            id = Math.floor(Math.random() * 4) + 1;
         } while (usedQuestionIds.includes(id));
         setUsedQuestionIds([...usedQuestionIds, id]);
         return id;
@@ -39,17 +40,27 @@ function Game() {
         fetchQuestion(id);
     }, [currentPlayer]);
 
+    useEffect(() => {
+        if (isCounting) {
+            clockAudio.play();
+        } else {
+            clockAudio.pause();
+            clockAudio.currentTime = 0;
+        }
+    }, [isCounting]);
+
     const handleFlip = () => {
+        flipAudio.play();
         setIsFlipped(!isFlipped);
     };
 
     const handleStartTimer = () => {
         setIsCounting(true);
-        clockAudio.play();
         setIsDisabled(true);
     };
 
     const handleAnswer = (isCorrect) => {
+        btnClickAudio();
         const updatedPlayers = [...players];
         if (isCorrect) {
             updatedPlayers[currentPlayer].points += 1;
@@ -57,13 +68,13 @@ function Game() {
                 setGameOver(true);
             }
         }
+
+        setIsCounting(false);
+        setIsDisabled(false);
         setPlayers(updatedPlayers);
         localStorage.setItem("players", JSON.stringify(updatedPlayers));
         setCurrentPlayer((currentPlayer + 1) % players.length);
         setIsFlipped(false);
-        setIsCounting(false);
-        setIsDisabled(false);
-        clockAudio.pause();
     };
 
     if (gameOver) {
@@ -84,7 +95,7 @@ function Game() {
                     <button onClick={btnClickAudio} className={styles.quitBtn}>QUIT</button>
                 </Link>
                 <div className={styles.question}>
-                    <div className={styles.questionFor}>It is {players[currentPlayer].name}'s turn</div>
+                    <div className={styles.questionFor} style={{backgroundColor: players[currentPlayer].color}}>It is {players[currentPlayer].name}'s turn</div>
                     <div className={isFlipped ? `${styles.card} ${styles.flipped}` : styles.card}>
                         <div className={styles.front}>?</div>
                         <div className={styles.back}>{currentQuestion?.description}</div>
