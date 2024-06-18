@@ -17,6 +17,7 @@ function Game() {
     const [clockAudio] = useState(new Audio("/public/clock.mp3"));
     const [btnAudio] = useState(new Audio("/public/btnClickAudio.mp3"));
     const [flipAudio] = useState(new Audio("/public/flip.mp3"));
+    const [winAudio] = useState(new Audio("/public/win.mp3"));
 
     const btnClickAudio = () => btnAudio.play();
 
@@ -29,7 +30,7 @@ function Game() {
     const getRandomQuestion = () => {
         let id;
         do {
-            id = Math.floor(Math.random() * 4) + 1;
+            id = Math.floor(Math.random() * 200) + 1;
         } while (usedQuestionIds.includes(id));
         setUsedQuestionIds([...usedQuestionIds, id]);
         return id;
@@ -66,6 +67,11 @@ function Game() {
             updatedPlayers[currentPlayer].points += 1;
             if (updatedPlayers[currentPlayer].points >= 10) {
                 setGameOver(true);
+                setPlayers(updatedPlayers);
+                setIsCounting(false);
+                localStorage.setItem("players", JSON.stringify(updatedPlayers));
+                winAudio.play();
+                return;
             }
         }
 
@@ -73,6 +79,7 @@ function Game() {
         setIsDisabled(false);
         setPlayers(updatedPlayers);
         localStorage.setItem("players", JSON.stringify(updatedPlayers));
+
         setCurrentPlayer((currentPlayer + 1) % players.length);
         setIsFlipped(false);
     };
@@ -80,7 +87,7 @@ function Game() {
     if (gameOver) {
         return (
             <div className={styles.container}>
-                <h1>{players[currentPlayer].name} won!</h1>
+                <h1 className={styles.winText} style={{color: players[currentPlayer].color}}>{players[currentPlayer].name} won!</h1>
                 <Link to="/">
                     <button onClick={btnClickAudio} className={styles.quitBtn}>QUIT</button>
                 </Link>
@@ -92,7 +99,7 @@ function Game() {
         <>
             <div className={styles.container}>
                 <Link to="/">
-                    <button onClick={btnClickAudio} className={styles.quitBtn}>QUIT</button>
+                    <button onClick={() => { btnClickAudio(); clockAudio.pause(); }} className={styles.quitBtn}>QUIT</button>
                 </Link>
                 <div className={styles.question}>
                     <div className={styles.questionFor} style={{backgroundColor: players[currentPlayer].color}}>It is {players[currentPlayer].name}'s turn</div>

@@ -13,10 +13,10 @@ function Home(){
             <Link to="/options" className={styles.link}>
             <button onClick={btnClickAudio} className={styles.playBtn}>PLAY</button>
             </Link>
-            <div className={styles.language}>
+            {/* <div className={styles.language}>
                 <button className={styles.lang}><img src="/public/pl.jpg"></img></button>
                 <button className={styles.lang}><img src="/public/eng.png"></img></button>
-            </div>
+            </div> */}
         </div>
     )
 }
