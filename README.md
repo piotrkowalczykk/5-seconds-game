@@ -36,7 +36,7 @@ Ensure you have the following installed on your machine:
 ## ⚙ How to Run
 #### Clone repository
 ```bash
-git clone https://github.com/piotrkowalczykk/to-do-app.git
+git clone https://github.com/piotrkowalczykk/5-seconds-game.git
 ```
 
 #### Create a MySQL database
@@ -67,7 +67,7 @@ IGNORE 0 ROWS
 
 
 #### Configure the database connection
-Open /backend/src/main/resources/application.properties
+Open /server/src/main/resources/application.properties
 ```bash
 spring.datasource.url=jdbc:mysql://localhost:3306/your_database_name
 spring.datasource.username=your_name
@@ -86,7 +86,7 @@ spring.jpa.show-sql=true
 The backend should now be running on http://localhost:8080
 
 #### Install dependencies
-Change directory to /frontend
+Change directory to /client
 ```bash
 npm install
 ```
