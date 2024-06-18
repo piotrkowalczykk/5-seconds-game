@@ -43,7 +43,7 @@ git clone https://github.com/piotrkowalczykk/to-do-app.git
 ```bash
 CREATE DATABASE your_database_name;
 ```
-### Create an array called `question`
+#### Create an array called `question`
 ```bash
 USE your_database_name;
 ```
