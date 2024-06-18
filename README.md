@@ -43,7 +43,7 @@ git clone https://github.com/piotrkowalczykk/5-seconds-game.git
 ```bash
 CREATE DATABASE your_database_name;
 ```
-#### Create an array called `question`
+#### Create a table called `question`
 ```bash
 USE your_database_name;
 ```
