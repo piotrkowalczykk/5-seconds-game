@@ -98,7 +98,7 @@ npm run dev
 The frontend should now be running on http://localhost:5173
 
 ## 🧾 License
-Available under the [MIT license](https://github.com/piotrkowalczykk/to-do-app/blob/main/LICENSE.md)
+Available under the [MIT license](https://github.com/piotrkowalczykk/5-seconds-game/blob/main/LICENSE)
 
 ## ⚠ Reports
-To report a bug or request a feature, please file an [issues](https://github.com/piotrkowalczykk/to-do-app/issues)
+To report a bug or request a feature, please file an [issues](https://github.com/piotrkowalczykk/5-seconds-game/issues)
